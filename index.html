@@ -1102,14 +1102,17 @@ function atualizarRanking(svAL, svDA, svKV, total, bonusTotal, mbAL, mbDA, mbKV)
 }
 
 function getSnap(){
-  return{sv:gi('sv'),rv:gi('rv'),ov:gi('ov'),sp:ii('sp'),rp:ii('rp'),op:ii('op'),
+  // Mapeamento para colunas existentes no Sheets:
+  // ab_prod → valor vendido Kevelyn (coluna disponível no cabeçalho padrão)
+  // op      → planos anuais Kevelyn (estava vazio)
+  // o_novas/o_remat/o_aval → qtd vendas Kevelyn (compartilha com slot "outros" do Sheets)
+  return{sv:gi('sv'),rv:gi('rv'),ov:gi('ov'),sp:ii('sp'),rp:ii('rp'),op:ii('kv_plan'),
     renovTotal:ii('renovTotal'),renovFeitos:ii('renovFeitos'),
     s_novas:ii('s_novas'),s_remat:ii('s_remat'),s_aval:ii('s_aval'),
     r_novas:ii('r_novas'),r_remat:ii('r_remat'),r_aval:ii('r_aval'),
-    o_novas:ii('o_novas'),o_remat:ii('o_remat'),o_aval:ii('o_aval'),
-    sa_prod:gi('sa_prod'),ra_prod:gi('ra_prod'),ab_prod:gi('kv_prod'),ou_prod:gi('ou_prod'),
-    ativos_inicio:ii('ativos_inicio'),cancelamentos:ii('cancelamentos'),
-    kv_vend:gi('kv_vend'),kv_novas:ii('kv_novas'),kv_remat:ii('kv_remat'),kv_aval:ii('kv_aval'),kv_plan:ii('kv_plan'),kv_prod:gi('kv_prod')};
+    o_novas:ii('kv_novas'),o_remat:ii('kv_remat'),o_aval:ii('kv_aval'),
+    sa_prod:gi('sa_prod'),ra_prod:gi('ra_prod'),ab_prod:gi('kv_vend'),ou_prod:gi('ou_prod'),
+    ativos_inicio:ii('ativos_inicio'),cancelamentos:ii('cancelamentos')};
 }
 
 function limparCampos(){
@@ -1125,11 +1128,26 @@ function limparCampos(){
 
 function applySnap(v){
   if(!v)return;
+  // Compatibilidade com versões antigas (campos de suplemento)
   if(v.sa_supl!==undefined&&v.sa_prod===undefined){v.sa_prod=(parseFloat(v.sa_supl)||0)+(parseFloat(v.sa_cami)||0)+(parseFloat(v.sa_outr)||0);v.ra_prod=(parseFloat(v.ra_supl)||0)+(parseFloat(v.ra_cami)||0)+(parseFloat(v.ra_outr)||0);v.ab_prod=(parseFloat(v.ab_supl)||0)+(parseFloat(v.ab_cami)||0)+(parseFloat(v.ab_outr)||0);v.ou_prod=(parseFloat(v.ou_supl)||0)+(parseFloat(v.ou_cami)||0)+(parseFloat(v.ou_outr)||0);}
-  // Compatibilidade: ab_prod (antigo campo Kevelyn recepção) → kv_prod
-  if(v.ab_prod!==undefined&&v.kv_prod===undefined)v.kv_prod=v.ab_prod;
-  var campos=['sv','rv','ov','sp','rp','op','renovTotal','renovFeitos','s_novas','s_remat','s_aval','r_novas','r_remat','r_aval','o_novas','o_remat','o_aval','sa_prod','ra_prod','ou_prod','ativos_inicio','cancelamentos','kv_vend','kv_novas','kv_remat','kv_aval','kv_plan','kv_prod'];
-  campos.forEach(function(id){var el=document.getElementById(id);if(el&&v[id]!==undefined&&v[id]!==null&&v[id]!=='')el.value=parseFloat(v[id])||0;else if(el&&(v[id]===''||v[id]===null))el.value=0;});
+  // Remapear colunas do Sheets → campos visuais Kevelyn
+  // ab_prod salvo = valor vendido Kevelyn; op = planos anuais Kevelyn
+  // o_novas/o_remat/o_aval = qtd vendas Kevelyn
+  if(v.ab_prod!==undefined) v.kv_vend = v.ab_prod;
+  if(v.op!==undefined) v.kv_plan = v.op;
+  if(v.o_novas!==undefined) v.kv_novas = v.o_novas;
+  if(v.o_remat!==undefined) v.kv_remat = v.o_remat;
+  if(v.o_aval!==undefined)  v.kv_aval  = v.o_aval;
+  // Campos numéricos normais
+  var campos=['sv','rv','ov','sp','rp','renovTotal','renovFeitos',
+    's_novas','s_remat','s_aval','r_novas','r_remat','r_aval',
+    'sa_prod','ra_prod','ou_prod','ativos_inicio','cancelamentos',
+    'kv_vend','kv_novas','kv_remat','kv_aval','kv_plan','kv_prod'];
+  campos.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el&&v[id]!==undefined&&v[id]!==null&&v[id]!=='') el.value=parseFloat(v[id])||0;
+    else if(el&&(v[id]===''||v[id]===null)) el.value=0;
+  });
   recalc();
 }
 
