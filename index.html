@@ -272,9 +272,9 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
 <div class="sync"><div class="sdot spin" id="sdot"></div><span id="stxt">Conectando...</span></div>
 
 <div class="tabs" id="tabsEl">
-  <button class="tab active" onclick="goTab('meta',this)">🎯 Meta</button>
-  <button class="tab" onclick="goTab('folha',this)">💰 Folha</button>
+  <button class="tab active" onclick="goTab('meta',this)">🎯 Meta Financeira</button>
   <button class="tab" onclick="goTab('retencao',this)">📊 Retenção</button>
+  <button class="tab" onclick="goTab('folha',this)">💰 Resultado Folha</button>
   <button class="tab" onclick="goTab('produtos',this)">📦 Produtos</button>
   <button class="tab" onclick="goTab('historico',this)">📋 Histórico</button>
   <button class="tab hid" id="tabColeta" onclick="goTab('preencher',this)">✏️ Preencher</button>
@@ -284,51 +284,116 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
 <div class="page active" id="page-meta">
   <div class="motiv" id="motivCard"></div>
   <div class="mbs">
-    <div class="mb t1" id="mb1"><div class="mb-tag">Meta</div><div class="mb-val">R$ 87k</div><div class="mb-bon">+R$ 300</div></div>
-    <div class="mb t2" id="mb2"><div class="mb-tag">Meta 2</div><div class="mb-val">R$ 97k</div><div class="mb-bon">+R$ 500</div></div>
-    <div class="mb ts" id="mbs"><div class="mb-tag">Super</div><div class="mb-val">R$ 107k</div><div class="mb-bon">+R$ 700</div></div>
+    <div class="mb t1" id="mb1"><div class="mb-tag">Meta</div><div class="mb-val">R$ 65k</div><div class="mb-bon">+R$ 100 cada</div></div>
+    <div class="mb t2" id="mb2"><div class="mb-tag">Meta 2</div><div class="mb-val">R$ 71,5k</div><div class="mb-bon">+R$ 200 cada</div></div>
+    <div class="mb ts" id="mbs"><div class="mb-tag">Super</div><div class="mb-val">R$ 78k</div><div class="mb-bon">+R$ 300 cada</div></div>
   </div>
   <div class="card">
     <div class="ctitle">Progresso coletivo</div>
     <div class="prog-total" id="d_total" style="color:var(--txt-b)">R$ 0</div>
     <div class="prog-sub" id="d_sub_prog" style="color:var(--txt2-b)"><span id="d_pct">0%</span><span id="d_dias"></span></div>
     <div class="bar bar-warn" id="barWrap"><div class="bar-f bf-verm" id="barFill" style="width:0%"></div></div>
-    <div class="marcadores">
-      <div class="marc" style="left:81.3%"><div class="marc-line"></div><div class="marc-lbl" style="color:var(--txt2-b)">87k</div></div>
-      <div class="marc" style="left:90.7%"><div class="marc-line"></div><div class="marc-lbl" style="color:var(--txt2-b)">97k</div></div>
-      <div class="marc" style="left:100%"><div class="marc-line"></div><div class="marc-lbl" style="color:var(--txt2-b)">107k</div></div>
+    <div class="marcadores" id="marcadoresWrap">
+      <div class="marc" id="marc1" style="left:83.3%"><div class="marc-line"></div><div class="marc-lbl" style="color:var(--txt2-b)" id="marc1lbl">65k</div></div>
+      <div class="marc" id="marc2" style="left:91.7%"><div class="marc-line"></div><div class="marc-lbl" style="color:var(--txt2-b)" id="marc2lbl">71,5k</div></div>
+      <div class="marc" id="marc3" style="left:100%"><div class="marc-line"></div><div class="marc-lbl" style="color:var(--txt2-b)" id="marc3lbl">78k</div></div>
     </div>
     <div class="falta-lbl" id="d_falta" style="color:var(--txt2-b)">—</div>
   </div>
-  <div class="cg3">
+
+  <!-- BLOCO META DIÁRIA -->
+  <div class="card" id="metaDiariaCard">
+    <div class="ctitle">📅 Meta diária necessária — dias úteis restantes</div>
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <div style="flex:1;background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:12px;text-align:center">
+        <div style="font-size:10px;font-weight:700;color:#166534;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">Para bater Meta 1</div>
+        <div style="font-size:26px;font-weight:800;color:#166534;line-height:1" id="md_meta1">—</div>
+        <div style="font-size:11px;color:#166534;margin-top:3px;font-weight:600" id="md_meta1_sub">por dia útil</div>
+      </div>
+      <div style="flex:1;background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(239,68,68,.12));border:1.5px solid rgba(245,158,11,.5);border-radius:12px;padding:12px;text-align:center">
+        <div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">Para bater Super Meta</div>
+        <div style="font-size:26px;font-weight:800;color:#92400e;line-height:1" id="md_super">—</div>
+        <div style="font-size:11px;color:#92400e;margin-top:3px;font-weight:600" id="md_super_sub">por dia útil</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;background:#f8fafc;border-radius:10px;padding:8px 12px;font-size:12px;color:var(--txt2-b)">
+      <span>📆 Dias úteis restantes: <strong id="md_dias_uteis" style="color:#0f172a">—</strong></span>
+      <span id="md_hoje_util" style="font-weight:600;font-size:11px"></span>
+    </div>
+    <div style="font-size:11px;color:var(--txt2-b);margin-top:8px;font-style:italic">* Exclui sábados, domingos e feriados nacionais. Reajusta automaticamente conforme as vendas aumentam.</div>
+  </div>
+
+  <div class="cg3" style="grid-template-columns:repeat(4,1fr)">
     <div class="cc"><div class="av al">CM</div><div class="cn">Camilly</div><div class="cs">Consultora</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_sv">R$ 0</div><div class="ss" id="d_sp">0 planos anuais</div></div>
-    <div class="cc"><div class="av da">FR</div><div class="cn">Franciele</div><div class="cs">Consultora</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_rv">R$ 0</div><div class="ss" id="d_rp">0 planos anuais</div></div>
+    <div class="cc"><div class="av da">KA</div><div class="cn">Kalitha</div><div class="cs">Consultora</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_rv">R$ 0</div><div class="ss" id="d_rp">0 planos anuais</div></div>
+    <div class="cc"><div class="av ky">KV</div><div class="cn">Kevelyn</div><div class="cs">Consultora</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_kvv">R$ 0</div><div class="ss" id="d_kvp">0 planos anuais</div></div>
     <div class="cc out"><div class="av out2">+</div><div class="cn">Outros</div><div class="cs">Líder / outros</div><div class="nb">Só registro</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_ov">R$ 0</div><div class="ss" id="d_op">0 planos anuais</div></div>
   </div>
   <div class="anuais-card">
     <div class="anuais-titulo">📅 Planos anuais vendidos no mês</div>
-    <div class="anuais-grid">
+    <div class="anuais-grid" style="grid-template-columns:repeat(4,1fr)">
       <div class="anuais-item"><div class="anuais-num" id="an_al">0</div><div class="anuais-lbl">Camilly</div></div>
-      <div class="anuais-item"><div class="anuais-num" id="an_da">0</div><div class="anuais-lbl">Franciele</div></div>
+      <div class="anuais-item"><div class="anuais-num" id="an_da">0</div><div class="anuais-lbl">Kalitha</div></div>
+      <div class="anuais-item"><div class="anuais-num" id="an_kv">0</div><div class="anuais-lbl">Kevelyn</div></div>
       <div class="anuais-item"><div class="anuais-num" id="an_out">0</div><div class="anuais-lbl">Outros</div></div>
     </div>
     <div class="anuais-nota">💡 Planos anuais têm ticket maior e são o foco — quanto mais anuais, mais perto da meta!</div>
   </div>
   <div class="cdark">
     <div class="bgrid">
-      <div class="bi" id="bi1"><div class="bi-tag">Meta</div><div class="bi-val">R$ 300</div><div class="bi-sub">R$ 150 cada</div></div>
-      <div class="bi" id="bi2"><div class="bi-tag">Meta 2</div><div class="bi-val">R$ 500</div><div class="bi-sub">R$ 250 cada</div></div>
-      <div class="bi" id="bi3"><div class="bi-tag">Super meta</div><div class="bi-val">R$ 700</div><div class="bi-sub">R$ 350 cada</div></div>
+      <div class="bi" id="bi1"><div class="bi-tag">Meta</div><div class="bi-val">R$ 300</div><div class="bi-sub">R$ 100 cada</div></div>
+      <div class="bi" id="bi2"><div class="bi-tag">Meta 2</div><div class="bi-val">R$ 600</div><div class="bi-sub">R$ 200 cada</div></div>
+      <div class="bi" id="bi3"><div class="bi-tag">Super meta</div><div class="bi-val">R$ 900</div><div class="bi-sub">R$ 300 cada</div></div>
     </div>
     <div class="brow brow-nenhum" id="bonusRow">
       <span class="brow-lbl" id="bonusLbl">😔 Poxa, ainda sem bônus desbloqueado — vamos juntas!</span>
       <span class="brow-none-val" id="bonusVal">R$ 0</span>
     </div>
   </div>
-  <div class="sc sc-r" id="statusCard"><div class="sc-icon" id="scIcon">😟</div><div class="sc-msg" id="scMsg">Ainda longe da meta</div><div class="sc-sub" id="scSub">Faltam R$ 80.000 para a meta inicial</div></div>
+  <div class="sc sc-r" id="statusCard"><div class="sc-icon" id="scIcon">😟</div><div class="sc-msg" id="scMsg">Ainda longe da meta</div><div class="sc-sub" id="scSub">Faltam R$ 65.000 para a meta inicial</div></div>
 </div>
 
-<!-- ABA FOLHA -->
+<!-- ABA RETENÇÃO -->
+<div class="page" id="page-retencao">
+  <div class="reta reta-vazio" id="retAlerta">
+    <div class="reta-icon" id="retIcon">📊</div>
+    <div class="reta-msg" id="retMsg">Aguardando dados</div>
+    <div class="reta-sub" id="retSub">Preencha para ver o crescimento da base</div>
+    <div class="reta-pct" id="retPct"></div>
+  </div>
+  <div class="retg">
+    <div class="retc"><div class="ret-lbl">Ativos dia 01</div><div class="ret-num" id="d_ini">0</div><div class="ret-hint">base do mês</div></div>
+    <div class="retc"><div class="ret-lbl">Ativos fechamento</div><div class="ret-num" id="d_fim">0</div><div class="ret-hint" id="d_var">calculado automaticamente</div></div>
+    <div class="retc"><div class="ret-lbl">Novas entradas</div><div class="ret-num rpos" id="d_entr">0</div><div class="ret-hint">novas + rematrículas</div></div>
+    <div class="retc"><div class="ret-lbl">Saldo do mês</div><div class="ret-num" id="d_saldo">0</div><div class="ret-hint" id="d_saldo_s">entradas − perdas</div></div>
+  </div>
+  <div class="rpg">
+    <div class="rpc rpc-can"><div class="rpc-num" id="d_cancel">0</div><div class="rpc-lbl">Cancelamentos</div></div>
+    <div class="rpc rpc-nr"><div class="rpc-num" id="d_nren">0</div><div class="rpc-lbl">Não renovados</div></div>
+    <div class="rpc rpc-tot"><div class="rpc-num" id="d_perdas">0</div><div class="rpc-lbl">Total perdas</div></div>
+  </div>
+  <div class="card" style="margin-top:.5rem">
+    <div class="ctitle">🎯 Meta de cancelamento — Líder</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px">
+      <div>
+        <div style="font-size:12px;color:var(--txt2-b);margin-bottom:2px;font-weight:500">Taxa atual de cancelamento</div>
+        <div style="font-size:34px;font-weight:800;color:#0f172a" id="canc_pct">—</div>
+      </div>
+      <div style="text-align:right">
+        <div id="canc_status" style="font-weight:700;font-size:14px;color:var(--txt2-b)">—</div>
+        <div id="canc_hint" style="font-size:12px;color:var(--txt2-b);font-weight:500;margin-top:2px"></div>
+      </div>
+    </div>
+    <div class="renov-bar-bg"><div class="renov-bar-f" id="cancBar" style="width:0%"></div></div>
+    <div class="renov-badges">
+      <div class="rb" id="cb_meta"><div class="rb-tag">Meta — ≤ 4%</div><div class="rb-val" id="cb_meta_val">—</div><div class="rb-sub">dos ativos no mês</div></div>
+      <div class="rb" id="cb_super"><div class="rb-tag">Super meta — ≤ 3%</div><div class="rb-val" id="cb_super_val">—</div><div class="rb-sub">dos ativos no mês</div></div>
+    </div>
+    <div style="font-size:11px;color:var(--txt2-b);margin-top:10px;font-style:italic">* Preencha os ativos dia 01 na aba ✏️ Preencher para calcular.</div>
+  </div>
+</div>
+
+<!-- ABA RESULTADO FOLHA -->
 <div class="page" id="page-folha">
   <div class="card">
     <div class="ctitle">Meta de renovações</div>
@@ -354,25 +419,27 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
         <div class="rtlbl">Total variável</div><div class="rtotal" id="r_al_t">R$ 0</div>
       </div>
       <div class="rc">
-        <div class="rn"><div class="rav da">FR</div><span class="rnm">Franciele</span></div>
+        <div class="rn"><div class="rav da">KA</div><span class="rnm">Kalitha</span></div>
         <div class="rl"><span class="rlbl">Vendas contabilizadas</span><span class="rv" id="r_da_qtd" style="color:var(--txt2-b)">0 vendas</span></div>
         <div class="rl"><span class="rlbl">Bônus vendas</span><span class="rv" id="r_da_v">R$ 0</span></div>
         <div class="rl"><span class="rlbl">Bônus renovações</span><span class="rv" id="r_da_r">R$ 0</span></div>
         <div class="rl"><span class="rlbl">Bônus avaliações</span><span class="rv" id="r_da_a">R$ 0</span></div>
         <div class="rtlbl">Total variável</div><div class="rtotal" id="r_da_t">R$ 0</div>
       </div>
-      <div class="rc out">
-        <div class="rn"><div class="rav out2">+</div><span class="rnm">Outros</span></div>
-        <div class="nb" style="margin-bottom:8px">Sem bônus</div>
-        <div class="rl"><span class="rlbl">Qtd vendas</span><span class="rv" id="r_out_v">0</span></div>
-        <div style="font-size:11px;color:var(--txt2-b);font-style:italic;margin-top:4px">Não gera folha</div>
+      <div class="rc">
+        <div class="rn"><div class="rav ky">KV</div><span class="rnm">Kevelyn</span></div>
+        <div class="rl"><span class="rlbl">Vendas contabilizadas</span><span class="rv" id="r_kv_qtd" style="color:var(--txt2-b)">0 vendas</span></div>
+        <div class="rl"><span class="rlbl">Bônus vendas</span><span class="rv" id="r_kv_v">R$ 0</span></div>
+        <div class="rl"><span class="rlbl">Bônus renovações</span><span class="rv" id="r_kv_r">R$ 0</span></div>
+        <div class="rl"><span class="rlbl">Bônus avaliações</span><span class="rv" id="r_kv_a">R$ 0</span></div>
+        <div class="rtlbl">Total variável</div><div class="rtotal" id="r_kv_t">R$ 0</div>
       </div>
     </div>
-    <div class="eqrow"><span class="eqlbl">Total equipe (AL + DA)</span><span class="eqval" id="r_eq">R$ 0</span></div>
+    <div class="eqrow"><span class="eqlbl">Total equipe (CM + KA + KV)</span><span class="eqval" id="r_eq">R$ 0</span></div>
   </div>
   <div class="card">
     <div class="ctitle">📋 Resumo de folha</div>
-    <div class="fg">
+    <div class="fg" style="grid-template-columns:repeat(3,1fr)">
       <div class="fc fc-al">
         <div class="fc-nome"><div class="fc-av">CM</div>Camilly</div>
         <div class="fcl"><span class="fclbl">Variável</span><span class="fcv" id="f_al_v">R$ 0</span></div>
@@ -382,37 +449,24 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
         <div class="fccred">Crédito produtos: R$ <span id="f_al_c">0,00</span></div>
       </div>
       <div class="fc fc-da">
-        <div class="fc-nome"><div class="fc-av">FR</div>Franciele</div>
+        <div class="fc-nome"><div class="fc-av">KA</div>Kalitha</div>
         <div class="fcl"><span class="fclbl">Variável</span><span class="fcv" id="f_da_v">R$ 0</span></div>
         <div class="fcl"><span class="fclbl">Bônus meta financ.</span><span class="fcv" id="f_da_m">R$ 0</span></div>
         <div class="fctlbl">Total folha</div>
         <div class="fctotal" id="f_da_t">R$ 0</div>
         <div class="fccred">Crédito produtos: R$ <span id="f_da_c">0,00</span></div>
       </div>
+      <div class="fc" style="background:linear-gradient(135deg,#3b1f6e,#6d28d9);box-shadow:0 4px 16px rgba(109,40,217,.3)">
+        <div class="fc-nome"><div class="fc-av">KV</div>Kevelyn</div>
+        <div class="fcl"><span class="fclbl">Variável</span><span class="fcv" id="f_kv_v">R$ 0</span></div>
+        <div class="fcl"><span class="fclbl">Bônus meta financ.</span><span class="fcv" id="f_kv_m">R$ 0</span></div>
+        <div class="fctlbl">Total folha</div>
+        <div class="fctotal" id="f_kv_t">R$ 0</div>
+        <div class="fccred">Crédito produtos: R$ <span id="f_kv_c">0,00</span></div>
+      </div>
     </div>
     <div class="fgeral"><span class="fgeral-lbl">Total geral folha</span><span class="fgeral-val" id="f_geral">R$ 0</span></div>
     <div style="font-size:11px;color:var(--txt2-b);margin-top:8px">* Créditos produtos não entram na folha — lançar no sistema para uso.</div>
-  </div>
-</div>
-
-<!-- ABA RETENÇÃO -->
-<div class="page" id="page-retencao">
-  <div class="reta reta-vazio" id="retAlerta">
-    <div class="reta-icon" id="retIcon">📊</div>
-    <div class="reta-msg" id="retMsg">Aguardando dados</div>
-    <div class="reta-sub" id="retSub">Preencha para ver o crescimento da base</div>
-    <div class="reta-pct" id="retPct"></div>
-  </div>
-  <div class="retg">
-    <div class="retc"><div class="ret-lbl">Ativos dia 01</div><div class="ret-num" id="d_ini">0</div><div class="ret-hint">base do mês</div></div>
-    <div class="retc"><div class="ret-lbl">Ativos fechamento</div><div class="ret-num" id="d_fim">0</div><div class="ret-hint" id="d_var">calculado automaticamente</div></div>
-    <div class="retc"><div class="ret-lbl">Novas entradas</div><div class="ret-num rpos" id="d_entr">0</div><div class="ret-hint">novas + rematrículas</div></div>
-    <div class="retc"><div class="ret-lbl">Saldo do mês</div><div class="ret-num" id="d_saldo">0</div><div class="ret-hint" id="d_saldo_s">entradas − perdas</div></div>
-  </div>
-  <div class="rpg">
-    <div class="rpc rpc-can"><div class="rpc-num" id="d_cancel">0</div><div class="rpc-lbl">Cancelamentos</div></div>
-    <div class="rpc rpc-nr"><div class="rpc-num" id="d_nren">0</div><div class="rpc-lbl">Não renovados</div></div>
-    <div class="rpc rpc-tot"><div class="rpc-num" id="d_perdas">0</div><div class="rpc-lbl">Total perdas</div></div>
   </div>
 </div>
 
@@ -424,12 +478,12 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
       <div><div style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:2px;font-weight:600">Total vendido</div><div class="pb-tot" id="p_total">R$ 0</div></div>
       <div style="text-align:right"><div class="pb-cl">Crédito gerado (1%)</div><div class="pb-cv" id="p_cred">R$ 0,00</div></div>
     </div>
-    <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:4px" id="p_break">AL R$ 0 · DA R$ 0 · KY R$ 0 · Outros R$ 0</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:4px" id="p_break">CM R$ 0 · KA R$ 0 · KV R$ 0 · Outros R$ 0</div>
   </div>
   <div class="pg2">
     <div class="pc"><div class="pcn"><div class="av al" style="width:30px;height:30px;font-size:10px;margin-bottom:0">CM</div><div style="font-size:14px;font-weight:700">Camilly</div></div><div class="pcd"></div><div class="pcr"><span class="pcr-lbl">Total</span><span class="pcr-val" id="p_al">R$ 0</span></div><div class="pcct"><span class="pcct-lbl">Crédito (1%)</span><span class="pcct-val" id="pc_al">R$ 0,00</span></div></div>
-    <div class="pc"><div class="pcn"><div class="av da" style="width:30px;height:30px;font-size:10px;margin-bottom:0">FR</div><div style="font-size:14px;font-weight:700">Franciele</div></div><div class="pcd"></div><div class="pcr"><span class="pcr-lbl">Total</span><span class="pcr-val" id="p_da">R$ 0</span></div><div class="pcct"><span class="pcct-lbl">Crédito (1%)</span><span class="pcct-val" id="pc_da">R$ 0,00</span></div></div>
-    <div class="pc"><div class="pcn"><div class="av ky" style="width:30px;height:30px;font-size:10px;margin-bottom:0">KV</div><div style="font-size:14px;font-weight:700">Kevelyn</div></div><div class="pcd"></div><div class="pcr"><span class="pcr-lbl">Total</span><span class="pcr-val" id="p_ky">R$ 0</span></div><div class="pcct"><span class="pcct-lbl">Crédito (1%)</span><span class="pcct-val" id="pc_ky">R$ 0,00</span></div></div>
+    <div class="pc"><div class="pcn"><div class="av da" style="width:30px;height:30px;font-size:10px;margin-bottom:0">KA</div><div style="font-size:14px;font-weight:700">Kalitha</div></div><div class="pcd"></div><div class="pcr"><span class="pcr-lbl">Total</span><span class="pcr-val" id="p_da">R$ 0</span></div><div class="pcct"><span class="pcct-lbl">Crédito (1%)</span><span class="pcct-val" id="pc_da">R$ 0,00</span></div></div>
+    <div class="pc"><div class="pcn"><div class="av ky" style="width:30px;height:30px;font-size:10px;margin-bottom:0">KV</div><div style="font-size:14px;font-weight:700">Kevelyn</div></div><div class="pcd"></div><div class="pcr"><span class="pcr-lbl">Total</span><span class="pcr-val" id="p_kv">R$ 0</span></div><div class="pcct"><span class="pcct-lbl">Crédito (1%)</span><span class="pcct-val" id="pc_kv">R$ 0,00</span></div></div>
     <div class="pc out"><div class="pcn"><div class="av out2" style="width:30px;height:30px;font-size:10px;margin-bottom:0">+</div><div style="font-size:14px;font-weight:700">Outros</div></div><div class="nb" style="margin-bottom:8px">Sem crédito</div><div class="pcd"></div><div class="pcr"><span class="pcr-lbl">Total</span><span class="pcr-val" id="p_out">R$ 0</span></div></div>
   </div>
   <div style="font-size:11px;color:var(--txt3);text-align:center;margin-bottom:.875rem">* Créditos não entram na folha — lançar no sistema para uso.</div>
@@ -459,7 +513,7 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
   </div>
 
   <div class="sec">🎯 Vendas por consultora</div>
-  <div class="cg3">
+  <div class="cg3" style="grid-template-columns:repeat(4,1fr)">
     <div class="cp">
       <div class="cph"><div class="av al" style="margin-bottom:0">CM</div><div><div class="cn">Camilly</div></div></div>
       <div class="cpd"></div>
@@ -470,13 +524,22 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
       <div class="campo"><label>Produtos (R$)</label><input type="number" id="sa_prod" value="0" min="0" oninput="recalc()"></div>
     </div>
     <div class="cp">
-      <div class="cph"><div class="av da" style="margin-bottom:0">FR</div><div><div class="cn">Franciele</div></div></div>
+      <div class="cph"><div class="av da" style="margin-bottom:0">KA</div><div><div class="cn">Kalitha</div></div></div>
       <div class="cpd"></div>
       <div class="campo"><label>Valor vendido (R$)</label><input type="number" id="rv" value="0" min="0" oninput="recalc()"></div>
       <div class="campo"><label>Novas vendas (qtd)</label><input type="number" id="r_novas" value="0" min="0" oninput="recalc()"></div>
       <div class="campo"><label>Rematrículas (qtd)</label><input type="number" id="r_remat" value="0" min="0" oninput="recalc()"></div>
       <div class="campo"><label>Avaliações (qtd)</label><input type="number" id="r_aval" value="0" min="0" oninput="recalc()"></div>
       <div class="campo"><label>Produtos (R$)</label><input type="number" id="ra_prod" value="0" min="0" oninput="recalc()"></div>
+    </div>
+    <div class="cp">
+      <div class="cph"><div class="av ky" style="margin-bottom:0">KV</div><div><div class="cn">Kevelyn</div></div></div>
+      <div class="cpd"></div>
+      <div class="campo"><label>Valor vendido (R$)</label><input type="number" id="kv_vend" value="0" min="0" oninput="recalc()"></div>
+      <div class="campo"><label>Novas vendas (qtd)</label><input type="number" id="kv_novas" value="0" min="0" oninput="recalc()"></div>
+      <div class="campo"><label>Rematrículas (qtd)</label><input type="number" id="kv_remat" value="0" min="0" oninput="recalc()"></div>
+      <div class="campo"><label>Avaliações (qtd)</label><input type="number" id="kv_aval" value="0" min="0" oninput="recalc()"></div>
+      <div class="campo"><label>Produtos (R$)</label><input type="number" id="kv_prod" value="0" min="0" oninput="recalc()"></div>
     </div>
     <div class="cp out">
       <div class="cph"><div class="av out2" style="margin-bottom:0">+</div><div><div class="cn">Outros</div><div class="cs" style="margin-bottom:0">Líder / outros</div></div></div>
@@ -490,19 +553,13 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
     </div>
   </div>
 
-  <div class="sec">💎 Kevelyn — Recepção</div>
-  <div class="cp" style="max-width:260px">
-    <div class="cph"><div class="av ky" style="margin-bottom:0">KV</div><div><div class="cn">Kevelyn</div><div class="cs" style="margin-bottom:0">Só crédito produto (1%)</div></div></div>
-    <div class="cpd"></div>
-    <div class="campo"><label>Produtos vendidos (R$)</label><input type="number" id="ab_prod" value="0" min="0" oninput="recalc()"></div>
-  </div>
-
   <div class="anuais-coleta">
     <div class="anuais-coleta-titulo">📅 Planos anuais vendidos</div>
     <div class="anuais-coleta-nota">Não somam no valor total — são o foco estratégico pois têm ticket maior e ajudam a bater meta.</div>
-    <div class="anuais-coleta-grid">
+    <div class="anuais-coleta-grid" style="grid-template-columns:repeat(4,1fr)">
       <div class="acg-item"><div class="acg-nome">Camilly</div><div class="campo" style="margin:0"><label style="display:none"></label><input type="number" id="sp" value="0" min="0" oninput="recalc()" style="width:100%;text-align:center;font-size:18px;font-weight:800;background:transparent;border-color:rgba(255,255,255,.2);color:#7dd3fc"></div></div>
-      <div class="acg-item"><div class="acg-nome">Franciele</div><div class="campo" style="margin:0"><label style="display:none"></label><input type="number" id="rp" value="0" min="0" oninput="recalc()" style="width:100%;text-align:center;font-size:18px;font-weight:800;background:transparent;border-color:rgba(255,255,255,.2);color:#7dd3fc"></div></div>
+      <div class="acg-item"><div class="acg-nome">Kalitha</div><div class="campo" style="margin:0"><label style="display:none"></label><input type="number" id="rp" value="0" min="0" oninput="recalc()" style="width:100%;text-align:center;font-size:18px;font-weight:800;background:transparent;border-color:rgba(255,255,255,.2);color:#7dd3fc"></div></div>
+      <div class="acg-item"><div class="acg-nome">Kevelyn</div><div class="campo" style="margin:0"><label style="display:none"></label><input type="number" id="kv_plan" value="0" min="0" oninput="recalc()" style="width:100%;text-align:center;font-size:18px;font-weight:800;background:transparent;border-color:rgba(255,255,255,.2);color:#7dd3fc"></div></div>
       <div class="acg-item"><div class="acg-nome">Outros</div><div class="campo" style="margin:0"><label style="display:none"></label><input type="number" id="op" value="0" min="0" oninput="recalc()" style="width:100%;text-align:center;font-size:18px;font-weight:800;background:transparent;border-color:rgba(255,255,255,.2);color:#7dd3fc"></div></div>
     </div>
   </div>
@@ -539,8 +596,77 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
 <script>
 const SHEET_URL="https://script.google.com/macros/s/AKfycbxMs9NeJwbKOYYJfYyemopLgHjgk8HaAs9PMToenY1RfV1gGjyQ4MBbyTWfMntfUb3r/exec";
 const SENHA='liderserraria';
-const M1=87000,M2=97000,SU=107000;
-var _bonusMeta=0,_remAL=0,_remDA=0,_prodAL=0,_prodDA=0,_lastMeta=0;
+let M1=65000,M2=71500,SU=78000;
+
+var METAS_POR_MES = {
+  'Jan/2025': [87000, 97000, 107000],
+  'Fev/2025': [87000, 97000, 107000],
+  'Mar/2025': [87000, 97000, 107000],
+  'Abr/2025': [87000, 97000, 107000],
+  'Mai/2025': [87000, 97000, 107000],
+  'Jun/2025': [87000, 97000, 107000],
+  'Jul/2025': [87000, 97000, 107000],
+  'Ago/2025': [87000, 97000, 107000],
+  'Set/2025': [87000, 97000, 107000],
+  'Out/2025': [87000, 97000, 107000],
+  'Nov/2025': [87000, 97000, 107000],
+  'Dez/2025': [87000, 97000, 107000],
+  'Jan/2026': [87000, 97000, 107000],
+  'Fev/2026': [87000, 97000, 107000],
+  'Mar/2026': [87000, 97000, 107000],
+  'Abr/2026': [87000, 97000, 107000],
+  'Mai/2026': [87000, 97000, 107000],
+  'Jun/2026': [87000, 97000, 107000],
+  'Jul/2026': [65000, 71500, 78000],
+  'Ago/2026': [65000, 71500, 78000],
+  'Set/2026': [65000, 71500, 78000],
+  'Out/2026': [65000, 71500, 78000],
+  'Nov/2026': [65000, 71500, 78000],
+  'Dez/2026': [65000, 71500, 78000],
+};
+var METAS_PADRAO = [65000, 71500, 78000];
+
+function getMetasDoMes(mes) {
+  if (METAS_POR_MES[mes]) return METAS_POR_MES[mes];
+  var meses = Object.keys(METAS_POR_MES);
+  var ABREV = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  function mesParaNum(m) { var p = m.split('/'); return parseInt(p[1]) * 12 + ABREV.indexOf(p[0]); }
+  var numMes = mesParaNum(mes);
+  var maiorAnterior = -1, metasAnterior = METAS_PADRAO;
+  meses.forEach(function(m) {
+    var n = mesParaNum(m);
+    if (n <= numMes && n > maiorAnterior) { maiorAnterior = n; metasAnterior = METAS_POR_MES[m]; }
+  });
+  return metasAnterior;
+}
+
+function fmtK(v) {
+  var k = v / 1000;
+  return (k === Math.floor(k) ? k.toFixed(0) : k.toFixed(1)) + 'k';
+}
+
+function aplicarMetas(mes) {
+  var metas = getMetasDoMes(mes);
+  M1 = metas[0]; M2 = metas[1]; SU = metas[2];
+  var mb1v = document.querySelector('#mb1 .mb-val');
+  var mb2v = document.querySelector('#mb2 .mb-val');
+  var mbsv = document.querySelector('#mbs .mb-val');
+  if (mb1v) mb1v.textContent = 'R$ ' + fmtK(M1);
+  if (mb2v) mb2v.textContent = 'R$ ' + fmtK(M2);
+  if (mbsv) mbsv.textContent = 'R$ ' + fmtK(SU);
+  var pM1 = (M1/SU*100).toFixed(1)+'%';
+  var pM2 = (M2/SU*100).toFixed(1)+'%';
+  var m1 = document.getElementById('marc1'), m2 = document.getElementById('marc2');
+  var m1l = document.getElementById('marc1lbl'), m2l = document.getElementById('marc2lbl'), m3l = document.getElementById('marc3lbl');
+  if (m1) m1.style.left = pM1;
+  if (m2) m2.style.left = pM2;
+  if (m1l) m1l.textContent = fmtK(M1);
+  if (m2l) m2l.textContent = fmtK(M2);
+  if (m3l) m3l.textContent = fmtK(SU);
+  recalc();
+}
+
+var _bonusMeta=0,_remAL=0,_remDA=0,_remKV=0,_prodAL=0,_prodDA=0,_prodKV=0,_lastMeta=0;
 
 function s(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}
 function gi(id){var e=document.getElementById(id);return e?parseFloat(e.value)||0:0;}
@@ -577,9 +703,12 @@ s('d_dias',diasR+' dias restantes');
     if(op.atual) opt.selected = true;
     sel.appendChild(opt);
   });
+  aplicarMetas(sel.value);
 })();
 
 function trocarMes(){
+  var mes = getMesSelecionado();
+  aplicarMetas(mes);
   limparCampos();
   var ui=document.getElementById('ultimoSalvo');if(ui)ui.innerHTML='Carregando...';
   var cu=document.getElementById('ch_ult');if(cu)cu.textContent='Carregando...';
@@ -610,25 +739,132 @@ function goTab(n,el){
   el.classList.add('active');
 }
 
-// ✅ NOVA LÓGICA: blocos de 15 completos = R$100 cada
-// excedente >= 10 → R$5/venda; excedente < 10 → R$0
+// calcBV: blocos de 15 completos = R$100 cada; excedente >= 10 → R$5/venda
 function calcBV(t){
   var blocos = Math.floor(t / 15);
   var excedente = t % 15;
   return blocos * 100 + (excedente >= 10 ? excedente * 5 : 0);
 }
 
-function recalc(){recalcMeta();recalcRem();recalcProd();recalcRet();}
+// ============================================================
+// FERIADOS NACIONAIS FIXOS (dd/mm — valem para qualquer ano)
+// ============================================================
+var FERIADOS_NACIONAIS = [
+  '01/01','21/04','01/05','07/09','12/10','02/11','15/11','20/11','25/12'
+];
+
+function isFeriado(date) {
+  var d = String(date.getDate()).padStart(2,'0');
+  var m = String(date.getMonth()+1).padStart(2,'0');
+  return FERIADOS_NACIONAIS.indexOf(d+'/'+m) >= 0;
+}
+
+function isUtilDia(date) {
+  var dow = date.getDay(); // 0=dom, 6=sab
+  return dow !== 0 && dow !== 6 && !isFeriado(date);
+}
+
+// Conta dias úteis de startDate (inclusive) até endDate (inclusive)
+function contarDiasUteis(startDate, endDate) {
+  var count = 0;
+  var cur = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+  var end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+  while(cur <= end) {
+    if(isUtilDia(cur)) count++;
+    cur.setDate(cur.getDate() + 1);
+  }
+  return count;
+}
+
+function calcMetaDiaria() {
+  // Proteção: não executar se elementos ainda não existem no DOM
+  if(!document.getElementById('md_meta1')) return;
+
+  var totalVendido = (gi('sv')||0) + (gi('rv')||0) + (gi('kv_vend')||0) + (gi('ov')||0);
+
+  // Usar mês selecionado se disponível
+  var mesSel = null;
+  try { mesSel = getMesSelecionado(); } catch(e) {}
+  
+  var refDate = new Date();
+  if(mesSel) {
+    var ABREV2 = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    var parts = mesSel.split('/');
+    var mesIdx = ABREV2.indexOf(parts[0]);
+    var ano = parseInt(parts[1]);
+    if(mesIdx >= 0 && !isNaN(ano)) {
+      var mesAtual = new Date().getMonth();
+      var anoAtual = new Date().getFullYear();
+      if(ano !== anoAtual || mesIdx !== mesAtual) {
+        refDate = new Date(ano, mesIdx + 1, 0);
+      }
+    }
+  }
+
+  var ano = refDate.getFullYear();
+  var mes = refDate.getMonth();
+  var hoje = new Date(ano, mes, refDate.getDate());
+  var ultimoDia = new Date(ano, mes + 1, 0);
+  var amanha = new Date(ano, mes, hoje.getDate() + 1);
+
+  var diasUteisRestantes = contarDiasUteis(amanha, ultimoDia);
+  if(isUtilDia(hoje)) diasUteisRestantes++;
+
+  var hojeUtil = isUtilDia(hoje);
+
+  var saldoM1 = Math.max(M1 - totalVendido, 0);
+  var saldoSU = Math.max(SU - totalVendido, 0);
+
+  var el_meta1     = document.getElementById('md_meta1');
+  var el_meta1_sub = document.getElementById('md_meta1_sub');
+  var el_super     = document.getElementById('md_super');
+  var el_super_sub = document.getElementById('md_super_sub');
+  var el_dias      = document.getElementById('md_dias_uteis');
+  var el_hoje      = document.getElementById('md_hoje_util');
+
+  if(el_dias) el_dias.textContent = diasUteisRestantes > 0 ? diasUteisRestantes : '0';
+  if(el_hoje) el_hoje.textContent = hojeUtil ? '✅ Hoje é dia útil' : '⛔ Hoje não é dia útil';
+
+  if(diasUteisRestantes <= 0) {
+    if(el_meta1) el_meta1.textContent = saldoM1 > 0 ? '—' : '✅';
+    if(el_meta1_sub) el_meta1_sub.textContent = saldoM1 > 0 ? 'sem dias úteis' : 'Meta atingida!';
+    if(el_super) el_super.textContent = saldoSU > 0 ? '—' : '✅';
+    if(el_super_sub) el_super_sub.textContent = saldoSU > 0 ? 'sem dias úteis' : 'Super atingida!';
+    return;
+  }
+
+  if(saldoM1 <= 0) {
+    if(el_meta1) el_meta1.textContent = '✅';
+    if(el_meta1_sub) el_meta1_sub.textContent = 'Meta 1 atingida!';
+  } else {
+    var diariaM1 = Math.ceil(saldoM1 / diasUteisRestantes);
+    if(el_meta1) el_meta1.textContent = 'R$ ' + diariaM1.toLocaleString('pt-BR');
+    if(el_meta1_sub) el_meta1_sub.textContent = 'faltam ' + fmt(saldoM1);
+  }
+
+  if(saldoSU <= 0) {
+    if(el_super) el_super.textContent = '✅';
+    if(el_super_sub) el_super_sub.textContent = 'Super meta atingida!';
+  } else {
+    var diariaSU = Math.ceil(saldoSU / diasUteisRestantes);
+    if(el_super) el_super.textContent = 'R$ ' + diariaSU.toLocaleString('pt-BR');
+    if(el_super_sub) el_super_sub.textContent = 'faltam ' + fmt(saldoSU);
+  }
+}
+
+function recalc(){recalcMeta();recalcRem();recalcProd();recalcRet();calcMetaDiaria();}
 
 function recalcMeta(){
-  var sv=gi('sv'),rv=gi('rv'),ov=gi('ov'),sp=ii('sp'),rp=ii('rp'),op=ii('op');
-  var total=sv+rv+ov,pct=Math.min((total/SU)*100,100);
+  var sv=gi('sv'),rv=gi('rv'),kvv=gi('kv_vend'),ov=gi('ov');
+  var sp=ii('sp'),rp=ii('rp'),kvp=ii('kv_plan'),op=ii('op');
+  var total=sv+rv+kvv+ov,pct=Math.min((total/SU)*100,100);
   s('d_total',fmt(total));
   s('d_pct',pct.toFixed(1)+'% da super meta');
   s('d_sv',fmt(sv));s('d_sp',sp+' planos anuais');
   s('d_rv',fmt(rv));s('d_rp',rp+' planos anuais');
+  s('d_kvv',fmt(kvv));s('d_kvp',kvp+' planos anuais');
   s('d_ov',fmt(ov));s('d_op',op+' planos anuais');
-  s('an_al',sp);s('an_da',rp);s('an_out',op);
+  s('an_al',sp);s('an_da',rp);s('an_kv',kvp);s('an_out',op);
   var bf=document.getElementById('barFill'),bw=document.getElementById('barWrap');
   if(bf){
     bf.style.width=pct+'%';
@@ -639,22 +875,21 @@ function recalcMeta(){
   }
   var fl=document.getElementById('d_falta');
   if(fl){
-    var falta=Math.max(SU-total,0);
     if(total>=SU)fl.innerHTML='🏆 <span class="fd" style="color:#16a34a">Super meta atingida!</span>';
     else if(total>=M2)fl.innerHTML='🔥 Faltam <span class="fd">'+fmt(SU-total)+'</span> para a super meta';
     else if(total>=M1)fl.innerHTML='✅ Faltam <span class="fd">'+fmt(M2-total)+'</span> para a meta 2';
     else fl.innerHTML='😟 Faltam <span class="fd" style="color:#dc2626">'+fmt(M1-total)+'</span> para a meta inicial';
   }
-  var bonus=total>=SU?700:total>=M2?500:total>=M1?300:0;
-  _bonusMeta=bonus/2;
-  ['bi1','bi2','bi3'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.className='bi'+(bonus>=[300,500,700][i]?' on':'');});
-  ['mb1','mb2','mbs'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.className='mb '+(i===0?'t1':i===1?'t2':'ts')+(bonus>=[300,500,700][i]?' on'+(i===0?'1':i===1?'2':'s'):'');});
+  var bonus=total>=SU?900:total>=M2?600:total>=M1?300:0;
+  _bonusMeta=Math.round(bonus/3);
+  ['bi1','bi2','bi3'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.className='bi'+(bonus>=[300,600,900][i]?' on':'');});
+  ['mb1','mb2','mbs'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.className='mb '+(i===0?'t1':i===1?'t2':'ts')+(bonus>=[300,600,900][i]?' on'+(i===0?'1':i===1?'2':'s'):'');});
   var br=document.getElementById('bonusRow'),bl=document.getElementById('bonusLbl'),bv=document.getElementById('bonusVal');
   if(br&&bl&&bv){
     if(bonus>0){
       br.className='brow brow-ok';
       bl.className='brow-lbl';bl.textContent='🎉 Bônus meta financeira desbloqueado!';
-      bv.className='brow-ok-val';bv.textContent='R$ '+bonus+' (R$ '+(bonus/2)+' cada)';
+      bv.className='brow-ok-val';bv.textContent='R$ '+bonus+' (R$ '+Math.round(bonus/3)+' cada)';
     }else{
       br.className='brow brow-nenhum';
       bl.className='brow-lbl';bl.textContent='😔 Poxa, ainda sem bônus — vamos juntas bater a meta!';
@@ -663,7 +898,7 @@ function recalcMeta(){
   }
   var sc=document.getElementById('statusCard');
   if(sc){
-    if(total>=SU){sc.className='sc sc-o';s('scIcon','🏆');s('scMsg','Super meta batida!');s('scSub','R$ 700 de bônus coletivo desbloqueado! Incrível!');}
+    if(total>=SU){sc.className='sc sc-o';s('scIcon','🏆');s('scMsg','Super meta batida!');s('scSub','R$ 900 de bônus coletivo desbloqueado! Incrível!');}
     else if(total>=M2){sc.className='sc sc-a';s('scIcon','🔥');s('scMsg','Meta 2 atingida!');s('scSub','Faltam '+fmt(SU-total)+' para a super meta — empurra!');}
     else if(total>=M1){sc.className='sc sc-v';s('scIcon','✅');s('scMsg','Meta inicial atingida!');s('scSub','Faltam '+fmt(M2-total)+' para a meta 2 — continua!');}
     else if(total>SU*0.5){sc.className='sc sc-i';s('scIcon','😤');s('scMsg','Ainda longe, mas vamos lá!');s('scSub','Faltam '+fmt(M1-total)+' para a meta inicial — não para!');}
@@ -671,8 +906,8 @@ function recalcMeta(){
   }
   var lvl=total>=SU?3:total>=M2?2:total>=M1?1:0;
   if(lvl>_lastMeta){
-    if(lvl===3)window.dispararConfete&&window.dispararConfete('🏆','Super meta batida!','R$ 700 de bônus para a equipe!');
-    else if(lvl===2)window.dispararConfete&&window.dispararConfete('🔥','Meta 2 atingida!','R$ 500 — partiu super meta!');
+    if(lvl===3)window.dispararConfete&&window.dispararConfete('🏆','Super meta batida!','R$ 900 de bônus para a equipe!');
+    else if(lvl===2)window.dispararConfete&&window.dispararConfete('🔥','Meta 2 atingida!','R$ 600 — partiu super meta!');
     else if(lvl===1)window.dispararConfete&&window.dispararConfete('✅','Meta inicial batida!','R$ 300 de bônus desbloqueado!');
   }
   _lastMeta=Math.max(_lastMeta,lvl);
@@ -683,44 +918,52 @@ function recalcRem(){
   var rt=ii('renovTotal'),rf=ii('renovFeitos');
   if(rt===0){s('d_rpct','—');var bar=document.getElementById('renovBar');if(bar){bar.style.width='0%';bar.className='renov-bar-f';}document.getElementById('rb70').className='rb';document.getElementById('rb85').className='rb';s('d_rst','Preencha os contratos vencendo');s('d_rflt','');}
   else{
-  var pct=Math.round((rf/rt)*100);
-  s('d_rpct',pct+'%');
-  var bar=document.getElementById('renovBar');
-  if(bar){bar.style.width=Math.min(pct,100)+'%';bar.className='renov-bar-f'+(pct>=85?' ok85':pct>=70?' ok70':'');}
-  document.getElementById('rb70').className='rb'+(pct>=70?' on70':'');
-  document.getElementById('rb85').className='rb'+(pct>=85?' on85':'');
-  s('d_rst',pct>=85?'✅ Meta cheia atingida':pct>=70?'🟡 Meta básica atingida':'⚠️ Abaixo da meta');
-  s('d_rflt',pct<85?'Faltam '+(Math.ceil(rt*0.85)-rf)+' renovações para 85%':'');}
+    var pct=Math.round((rf/rt)*100);
+    s('d_rpct',pct+'%');
+    var bar=document.getElementById('renovBar');
+    if(bar){bar.style.width=Math.min(pct,100)+'%';bar.className='renov-bar-f'+(pct>=85?' ok85':pct>=70?' ok70':'');}
+    document.getElementById('rb70').className='rb'+(pct>=70?' on70':'');
+    document.getElementById('rb85').className='rb'+(pct>=85?' on85':'');
+    s('d_rst',pct>=85?'✅ Meta cheia atingida':pct>=70?'🟡 Meta básica atingida':'⚠️ Abaixo da meta');
+    s('d_rflt',pct<85?'Faltam '+(Math.ceil(rt*0.85)-rf)+' renovações para 85%':'');
+  }
   var rb=rt>0?(pct>=85?100:pct>=70?50:0):0;
+  // Camilly
   var sn=ii('s_novas'),sr=ii('s_remat'),sa=ii('s_aval'),sbv=calcBV(sn+sr),sba=sa*10;
   _remAL=sbv+rb+sba;
   s('r_al_qtd',(sn+sr)+' vendas');
   s('r_al_v',fmt(sbv));s('r_al_r',fmt(rb));s('r_al_a',fmt(sba));s('r_al_t',fmt(_remAL));
+  // Kalitha
   var rn=ii('r_novas'),rr=ii('r_remat'),ra=ii('r_aval'),rbv=calcBV(rn+rr),rba=ra*10;
   _remDA=rbv+rb+rba;
   s('r_da_qtd',(rn+rr)+' vendas');
   s('r_da_v',fmt(rbv));s('r_da_r',fmt(rb));s('r_da_a',fmt(rba));s('r_da_t',fmt(_remDA));
-  s('r_out_v',(ii('o_novas')+ii('o_remat'))+' vendas');
-  s('r_eq',fmt(_remAL+_remDA));
+  // Kevelyn
+  var kn=ii('kv_novas'),kr=ii('kv_remat'),ka=ii('kv_aval'),kbv=calcBV(kn+kr),kba=ka*10;
+  _remKV=kbv+rb+kba;
+  s('r_kv_qtd',(kn+kr)+' vendas');
+  s('r_kv_v',fmt(kbv));s('r_kv_r',fmt(rb));s('r_kv_a',fmt(kba));s('r_kv_t',fmt(_remKV));
+  s('r_eq',fmt(_remAL+_remDA+_remKV));
   atualizarFolha();
 }
 
 function recalcProd(){
-  var sa=gi('sa_prod'),da=gi('ra_prod'),ky=gi('ab_prod'),out=gi('ou_prod');
-  _prodAL=sa;_prodDA=da;
-  var total=sa+da+ky+out;
-  s('p_total',fmt(total));s('p_cred',fmtd((sa+da+ky)*0.01));
+  var sa=gi('sa_prod'),da=gi('ra_prod'),kv=gi('kv_prod'),out=gi('ou_prod');
+  _prodAL=sa;_prodDA=da;_prodKV=kv;
+  var total=sa+da+kv+out;
+  s('p_total',fmt(total));s('p_cred',fmtd((sa+da+kv)*0.01));
   s('p_al',fmt(sa));s('pc_al',fmtd(sa*0.01));
   s('p_da',fmt(da));s('pc_da',fmtd(da*0.01));
-  s('p_ky',fmt(ky));s('pc_ky',fmtd(ky*0.01));
+  s('p_kv',fmt(kv));s('pc_kv',fmtd(kv*0.01));
   s('p_out',fmt(out));
-  s('p_break','AL '+fmt(sa)+' · DA '+fmt(da)+' · KY '+fmt(ky)+' · Outros '+fmt(out));
+  s('p_break','CM '+fmt(sa)+' · KA '+fmt(da)+' · KV '+fmt(kv)+' · Outros '+fmt(out));
   atualizarFolha();
 }
 
 function recalcRet(){
-  var ini=ii('ativos_inicio'),cancel=ii('cancelamentos'),rt=ii('renovTotal')||1,rf=ii('renovFeitos');
-  var nRen=rt>0?Math.max(rt-rf,0):0,entradas=ii('s_novas')+ii('s_remat')+ii('r_novas')+ii('r_remat')+ii('o_novas')+ii('o_remat');
+  var ini=ii('ativos_inicio'),cancel=ii('cancelamentos'),rt=ii('renovTotal')||0,rf=ii('renovFeitos');
+  var nRen=rt>0?Math.max(rt-rf,0):0;
+  var entradas=ii('s_novas')+ii('s_remat')+ii('r_novas')+ii('r_remat')+ii('kv_novas')+ii('kv_remat')+ii('o_novas')+ii('o_remat');
   var perdas=cancel+nRen,saldo=entradas-perdas,fim=ini+saldo;
   s('d_ini',ini);s('d_fim',fim);s('d_entr',entradas);s('d_cancel',cancel);s('d_nren',nRen);s('d_perdas',perdas);
   var sEl=document.getElementById('d_saldo');
@@ -730,20 +973,53 @@ function recalcRet(){
   else s('d_var','calculado automaticamente');
   var a=document.getElementById('retAlerta');
   if(!a)return;
-  if(ini===0){a.className='reta reta-vazio';s('retIcon','📊');s('retMsg','Aguardando dados');s('retSub','Preencha para ver o crescimento da base');s('retPct','');return;}
-  var pctC=ini>0?((saldo/ini)*100).toFixed(1):0;
-  if(saldo>0){a.className='reta reta-ok';s('retIcon','📈');s('retMsg','Base em crescimento!');s('retSub','A unidade está crescendo — mais entradas do que saídas!');s('retPct','+'+saldo+' alunos · +'+pctC+'% crescimento líquido');}
-  else if(saldo<0){a.className='reta reta-neg';s('retIcon','🚨');s('retMsg','ATENÇÃO — Base encolhendo!');s('retSub','Precisamos vender mais, renovar mais e cancelar menos!');s('retPct',saldo+' alunos · '+pctC+'% perda líquida');}
-  else{a.className='reta reta-neu';s('retIcon','➡️');s('retMsg','Base estabilizada');s('retSub','Entradas compensaram as saídas — vamos crescer!');s('retPct','Saldo zero — meta é crescimento positivo');}
+  if(ini===0){a.className='reta reta-vazio';s('retIcon','📊');s('retMsg','Aguardando dados');s('retSub','Preencha para ver o crescimento da base');s('retPct','');}
+  else{
+    var pctC=((saldo/ini)*100).toFixed(1);
+    if(saldo>0){a.className='reta reta-ok';s('retIcon','📈');s('retMsg','Base em crescimento!');s('retSub','A unidade está crescendo — mais entradas do que saídas!');s('retPct','+'+saldo+' alunos · +'+pctC+'% crescimento líquido');}
+    else if(saldo<0){a.className='reta reta-neg';s('retIcon','🚨');s('retMsg','ATENÇÃO — Base encolhendo!');s('retSub','Precisamos vender mais, renovar mais e cancelar menos!');s('retPct',saldo+' alunos · '+pctC+'% perda líquida');}
+    else{a.className='reta reta-neu';s('retIcon','➡️');s('retMsg','Base estabilizada');s('retSub','Entradas compensaram as saídas — vamos crescer!');s('retPct','Saldo zero — meta é crescimento positivo');}
+  }
+  // Meta cancelamento líder
+  var cpct_el=document.getElementById('canc_pct'),cst_el=document.getElementById('canc_status');
+  var chi_el=document.getElementById('canc_hint'),cbar=document.getElementById('cancBar');
+  var cb_meta=document.getElementById('cb_meta'),cb_super=document.getElementById('cb_super');
+  var cb_meta_val=document.getElementById('cb_meta_val'),cb_super_val=document.getElementById('cb_super_val');
+  if(ini===0){
+    if(cpct_el)cpct_el.textContent='—';
+    if(cst_el)cst_el.textContent='—';
+    if(chi_el)chi_el.textContent='Preencha ativos dia 01';
+    if(cbar)cbar.style.width='0%';
+    if(cb_meta)cb_meta.className='rb';
+    if(cb_super)cb_super.className='rb';
+    if(cb_meta_val)cb_meta_val.textContent='—';
+    if(cb_super_val)cb_super_val.textContent='—';
+  } else {
+    var cancPct=(cancel/ini)*100;
+    if(cpct_el)cpct_el.textContent=cancPct.toFixed(1)+'%';
+    var barW=Math.min((cancPct/6)*100,100);
+    if(cbar){cbar.style.width=barW+'%';cbar.className='renov-bar-f'+(cancPct<=3?' ok85':cancPct<=4?' ok70':'');}
+    if(cb_meta)cb_meta.className='rb'+(cancPct<=4?' on70':'');
+    if(cb_super)cb_super.className='rb'+(cancPct<=3?' on85':'');
+    if(cb_meta_val)cb_meta_val.textContent=cancPct<=4?'✅ Atingida':'❌ Não atingida';
+    if(cb_super_val)cb_super_val.textContent=cancPct<=3?'✅ Atingida':'❌ Não atingida';
+    if(cst_el){
+      if(cancPct<=3)cst_el.textContent='🏆 Super meta atingida!';
+      else if(cancPct<=4)cst_el.textContent='✅ Meta atingida';
+      else cst_el.textContent='⚠️ Acima da meta';
+    }
+    if(chi_el)chi_el.textContent=cancPct>4?'Limite: '+Math.floor(ini*0.04)+' cancelamentos (4% de '+ini+')':'';
+  }
 }
 
 function atualizarFolha(){
   var mb=_bonusMeta;
   s('f_al_v',fmt(_remAL));s('f_al_m',fmt(mb));s('f_al_t',fmt(_remAL+mb));
   s('f_da_v',fmt(_remDA));s('f_da_m',fmt(mb));s('f_da_t',fmt(_remDA+mb));
-  s('f_geral',fmt(_remAL+_remDA+mb*2));
+  s('f_kv_v',fmt(_remKV));s('f_kv_m',fmt(mb));s('f_kv_t',fmt(_remKV+mb));
+  s('f_geral',fmt(_remAL+_remDA+_remKV+mb*3));
   var fd=function(v){return v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});};
-  s('f_al_c',fd(_prodAL*0.01));s('f_da_c',fd(_prodDA*0.01));
+  s('f_al_c',fd(_prodAL*0.01));s('f_da_c',fd(_prodDA*0.01));s('f_kv_c',fd(_prodKV*0.01));
 }
 
 function getSnap(){
@@ -752,23 +1028,29 @@ function getSnap(){
     s_novas:ii('s_novas'),s_remat:ii('s_remat'),s_aval:ii('s_aval'),
     r_novas:ii('r_novas'),r_remat:ii('r_remat'),r_aval:ii('r_aval'),
     o_novas:ii('o_novas'),o_remat:ii('o_remat'),o_aval:ii('o_aval'),
-    sa_prod:gi('sa_prod'),ra_prod:gi('ra_prod'),ab_prod:gi('ab_prod'),ou_prod:gi('ou_prod'),
-    ativos_inicio:ii('ativos_inicio'),cancelamentos:ii('cancelamentos')};
+    sa_prod:gi('sa_prod'),ra_prod:gi('ra_prod'),ab_prod:gi('kv_prod'),ou_prod:gi('ou_prod'),
+    ativos_inicio:ii('ativos_inicio'),cancelamentos:ii('cancelamentos'),
+    kv_vend:gi('kv_vend'),kv_novas:ii('kv_novas'),kv_remat:ii('kv_remat'),kv_aval:ii('kv_aval'),kv_plan:ii('kv_plan'),kv_prod:gi('kv_prod')};
 }
 
 function limparCampos(){
   ['sv','rv','ov','sp','rp','op','renovTotal','renovFeitos',
    's_novas','s_remat','s_aval','r_novas','r_remat','r_aval',
-   'o_novas','o_remat','o_aval','sa_prod','ra_prod','ab_prod','ou_prod',
-   'ativos_inicio','cancelamentos'].forEach(function(id){
+   'o_novas','o_remat','o_aval','sa_prod','ra_prod','ou_prod',
+   'ativos_inicio','cancelamentos',
+   'kv_vend','kv_novas','kv_remat','kv_aval','kv_plan','kv_prod'].forEach(function(id){
     var el=document.getElementById(id);if(el)el.value=0;
   });
   recalc();
 }
+
 function applySnap(v){
   if(!v)return;
   if(v.sa_supl!==undefined&&v.sa_prod===undefined){v.sa_prod=(parseFloat(v.sa_supl)||0)+(parseFloat(v.sa_cami)||0)+(parseFloat(v.sa_outr)||0);v.ra_prod=(parseFloat(v.ra_supl)||0)+(parseFloat(v.ra_cami)||0)+(parseFloat(v.ra_outr)||0);v.ab_prod=(parseFloat(v.ab_supl)||0)+(parseFloat(v.ab_cami)||0)+(parseFloat(v.ab_outr)||0);v.ou_prod=(parseFloat(v.ou_supl)||0)+(parseFloat(v.ou_cami)||0)+(parseFloat(v.ou_outr)||0);}
-  ['sv','rv','ov','sp','rp','op','renovTotal','renovFeitos','s_novas','s_remat','s_aval','r_novas','r_remat','r_aval','o_novas','o_remat','o_aval','sa_prod','ra_prod','ab_prod','ou_prod','ativos_inicio','cancelamentos'].forEach(function(id){var el=document.getElementById(id);if(el&&v[id]!==undefined&&v[id]!==null&&v[id]!=='')el.value=parseFloat(v[id])||0;else if(el&&(v[id]===''||v[id]===null))el.value=0;});
+  // Compatibilidade: ab_prod (antigo campo Kevelyn recepção) → kv_prod
+  if(v.ab_prod!==undefined&&v.kv_prod===undefined)v.kv_prod=v.ab_prod;
+  var campos=['sv','rv','ov','sp','rp','op','renovTotal','renovFeitos','s_novas','s_remat','s_aval','r_novas','r_remat','r_aval','o_novas','o_remat','o_aval','sa_prod','ra_prod','ou_prod','ativos_inicio','cancelamentos','kv_vend','kv_novas','kv_remat','kv_aval','kv_plan','kv_prod'];
+  campos.forEach(function(id){var el=document.getElementById(id);if(el&&v[id]!==undefined&&v[id]!==null&&v[id]!=='')el.value=parseFloat(v[id])||0;else if(el&&(v[id]===''||v[id]===null))el.value=0;});
   recalc();
 }
 
@@ -784,11 +1066,9 @@ async function salvar(){
   var anoSel=parseInt(partesMes[1]);
   var mesSNum=parseInt(mesNum)-1;
   var diaUso=agora;
-  if(mesSNum!==agora.getMonth()||anoSel!==agora.getFullYear()){
-    diaUso=new Date(anoSel,mesSNum+1,0);
-  }
+  if(mesSNum!==agora.getMonth()||anoSel!==agora.getFullYear()){diaUso=new Date(anoSel,mesSNum+1,0);}
   var data=String(diaUso.getDate()).padStart(2,'0')+'/'+mesNum+'/'+anoSel;
-  var total=gi('sv')+gi('rv')+gi('ov');
+  var total=gi('sv')+gi('rv')+gi('kv_vend')+gi('ov');
   var dados={...snap,nome,data,hora,total};
   var btn=document.getElementById('btnSalvar');
   btn.disabled=true;btn.textContent='Salvando...';
@@ -798,10 +1078,8 @@ async function salvar(){
     toast('✅ Salvo! '+nome+' · '+hora);
     ss('ok','Sincronizado · '+nome+' às '+hora);
     document.getElementById('nomeInput').value='';
-    var ui=document.getElementById('ultimoSalvo');
-    if(ui)ui.innerHTML='Último: <strong>'+nome+'</strong> às <strong>'+hora+'</strong>';
-    var cu=document.getElementById('ch_ult');
-    if(cu)cu.textContent='Salvo por '+nome+' às '+hora;
+    var ui=document.getElementById('ultimoSalvo');if(ui)ui.innerHTML='Último: <strong>'+nome+'</strong> às <strong>'+hora+'</strong>';
+    var cu=document.getElementById('ch_ult');if(cu)cu.textContent='Salvo por '+nome+' às '+hora;
     setTimeout(()=>carregarHistorico(),1500);
   }catch(e){toast('Erro ao salvar. Verifique a conexão.','#dc2626');ss('err','Erro de conexão');}
   btn.disabled=false;btn.textContent='💾 Salvar';
@@ -812,14 +1090,16 @@ async function carregarHistorico(){
   list.innerHTML='<div class="hvazio">Carregando...</div>';
   ss('spin','Carregando...');
   try{
-    var mesSel=typeof getMesSelecionado==='function'?getMesSelecionado():'';var url=SHEET_URL+'?action=carregar'+(mesSel?'&mes='+encodeURIComponent(mesSel):'');var resp=await fetch(url),regs=await resp.json();
+    var mesSel=typeof getMesSelecionado==='function'?getMesSelecionado():'';
+    var url=SHEET_URL+'?action=carregar'+(mesSel?'&mes='+encodeURIComponent(mesSel):'');
+    var resp=await fetch(url),regs=await resp.json();
     window._registros=regs;
     if(!regs||!regs.length){list.innerHTML='<div class="hvazio">Nenhum registro ainda</div>';ss('ok','Conectado');return;}
     var htm='';
     regs.forEach(function(r){
       var hora=r.hora||'';
       if(hora.includes('T')||hora.includes('1899'))hora='';
-      htm+='<div class="hi"><div><div class="hin">'+r.nome+'</div><div class="hid">'+(r.data||'')+(hora?' às '+hora:'')+'</div></div><div><div class="hit">'+fmt(r.total||0)+'</div><div class="hiv">AL: '+fmt(parseFloat(r.sv)||0)+' · DA: '+fmt(parseFloat(r.rv)||0)+'</div></div></div>';
+      htm+='<div class="hi"><div><div class="hin">'+r.nome+'</div><div class="hid">'+(r.data||'')+(hora?' às '+hora:'')+'</div></div><div><div class="hit">'+fmt(r.total||0)+'</div><div class="hiv">CM: '+fmt(parseFloat(r.sv)||0)+' · KA: '+fmt(parseFloat(r.rv)||0)+'</div></div></div>';
     });
     list.innerHTML=htm;ss('ok','Conectado ao Google Sheets');
   }catch(e){list.innerHTML='<div class="hvazio">Erro ao carregar</div>';ss('err','Erro de conexão');}
