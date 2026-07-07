@@ -284,9 +284,9 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
 <div class="page active" id="page-meta">
   <div class="motiv" id="motivCard"></div>
   <div class="mbs">
-    <div class="mb t1" id="mb1"><div class="mb-tag">Meta</div><div class="mb-val">R$ 65k</div><div class="mb-bon">+R$ 100 cada</div></div>
-    <div class="mb t2" id="mb2"><div class="mb-tag">Meta 2</div><div class="mb-val">R$ 71,5k</div><div class="mb-bon">+R$ 200 cada</div></div>
-    <div class="mb ts" id="mbs"><div class="mb-tag">Super</div><div class="mb-val">R$ 78k</div><div class="mb-bon">+R$ 300 cada</div></div>
+    <div class="mb t1" id="mb1"><div class="mb-tag">Meta</div><div class="mb-val">R$ 65k</div><div class="mb-bon">+R$ 400 proporcional</div></div>
+    <div class="mb t2" id="mb2"><div class="mb-tag">Meta 2</div><div class="mb-val">R$ 71,5k</div><div class="mb-bon">+R$ 700 proporcional</div></div>
+    <div class="mb ts" id="mbs"><div class="mb-tag">Super</div><div class="mb-val">R$ 78k</div><div class="mb-bon">+R$ 1.000 proporcional</div></div>
   </div>
   <div class="card">
     <div class="ctitle">Progresso coletivo</div>
@@ -324,9 +324,9 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
   </div>
 
   <div class="cg3" style="grid-template-columns:repeat(4,1fr)">
-    <div class="cc"><div class="av al">CM</div><div class="cn">Camilly</div><div class="cs">Consultora</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_sv">R$ 0</div><div class="ss" id="d_sp">0 planos anuais</div></div>
-    <div class="cc"><div class="av da">KA</div><div class="cn">Kalitha</div><div class="cs">Consultora</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_rv">R$ 0</div><div class="ss" id="d_rp">0 planos anuais</div></div>
-    <div class="cc"><div class="av ky">KV</div><div class="cn">Kevelyn</div><div class="cs">Consultora</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_kvv">R$ 0</div><div class="ss" id="d_kvp">0 planos anuais</div></div>
+    <div class="cc"><div class="av al">CM</div><div style="display:flex;align-items:center;gap:4px"><div class="cn">Camilly</div><span id="rank_cm" style="font-size:14px"></span></div><div class="cs">Consultora</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_sv">R$ 0</div><div class="ss" id="d_sp">0 planos anuais</div></div>
+    <div class="cc"><div class="av da">KA</div><div style="display:flex;align-items:center;gap:4px"><div class="cn">Kalitha</div><span id="rank_ka" style="font-size:14px"></span></div><div class="cs">Consultora</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_rv">R$ 0</div><div class="ss" id="d_rp">0 planos anuais</div></div>
+    <div class="cc"><div class="av ky">KV</div><div style="display:flex;align-items:center;gap:4px"><div class="cn">Kevelyn</div><span id="rank_kv" style="font-size:14px"></span></div><div class="cs">Consultora</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_kvv">R$ 0</div><div class="ss" id="d_kvp">0 planos anuais</div></div>
     <div class="cc out"><div class="av out2">+</div><div class="cn">Outros</div><div class="cs">Líder / outros</div><div class="nb">Só registro</div><div class="dv"></div><div class="sl">Total vendido</div><div class="sv" id="d_ov">R$ 0</div><div class="ss" id="d_op">0 planos anuais</div></div>
   </div>
   <div class="anuais-card">
@@ -341,15 +341,24 @@ body{font-family:'Sora',sans-serif;background:linear-gradient(170deg,#0a1628 0%,
   </div>
   <div class="cdark">
     <div class="bgrid">
-      <div class="bi" id="bi1"><div class="bi-tag">Meta</div><div class="bi-val">R$ 300</div><div class="bi-sub">R$ 100 cada</div></div>
-      <div class="bi" id="bi2"><div class="bi-tag">Meta 2</div><div class="bi-val">R$ 600</div><div class="bi-sub">R$ 200 cada</div></div>
-      <div class="bi" id="bi3"><div class="bi-tag">Super meta</div><div class="bi-val">R$ 900</div><div class="bi-sub">R$ 300 cada</div></div>
+      <div class="bi" id="bi1"><div class="bi-tag">Meta</div><div class="bi-val">R$ 400</div><div class="bi-sub">proporcional</div></div>
+      <div class="bi" id="bi2"><div class="bi-tag">Meta 2</div><div class="bi-val">R$ 700</div><div class="bi-sub">proporcional</div></div>
+      <div class="bi" id="bi3"><div class="bi-tag">Super meta</div><div class="bi-val">R$ 1.000</div><div class="bi-sub">proporcional</div></div>
     </div>
     <div class="brow brow-nenhum" id="bonusRow">
       <span class="brow-lbl" id="bonusLbl">😔 Poxa, ainda sem bônus desbloqueado — vamos juntas!</span>
       <span class="brow-none-val" id="bonusVal">R$ 0</span>
     </div>
   </div>
+  <!-- RANKING DA EQUIPE -->
+  <div class="cdark" id="rankingCard" style="margin-bottom:.875rem">
+    <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">🏅 Ranking de contribuição — bônus proporcional</div>
+    <div id="rankingLista" style="display:flex;flex-direction:column;gap:8px">
+      <!-- preenchido por JS -->
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:10px;font-style:italic">* Bônus individual = % de contribuição × bônus total desbloqueado. Quanto mais você vende, mais você recebe.</div>
+  </div>
+
   <div class="sc sc-r" id="statusCard"><div class="sc-icon" id="scIcon">😟</div><div class="sc-msg" id="scMsg">Ainda longe da meta</div><div class="sc-sub" id="scSub">Faltam R$ 65.000 para a meta inicial</div></div>
 </div>
 
@@ -683,6 +692,37 @@ s('hMes',MESES[now.getMonth()]+' '+now.getFullYear());
 s('hSaud',(h<12?'☀️ Bom dia':h<18?'🌤️ Boa tarde':'🌙 Boa noite')+' · '+DIAS[now.getDay()]+', '+now.getDate()+'/'+String(now.getMonth()+1).padStart(2,'0'));
 s('d_dias',diasR+' dias restantes');
 
+// ============================================================
+// FERIADOS NACIONAIS FIXOS (dd/mm — valem para qualquer ano)
+// ============================================================
+var FERIADOS_NACIONAIS = [
+  '01/01','21/04','01/05','07/09','12/10','02/11','15/11','20/11','25/12'
+];
+
+function isFeriado(date) {
+  var d = String(date.getDate()).padStart(2,'0');
+  var m = String(date.getMonth()+1).padStart(2,'0');
+  return FERIADOS_NACIONAIS.indexOf(d+'/'+m) >= 0;
+}
+
+function isUtilDia(date) {
+  var dow = date.getDay(); // 0=dom, 6=sab
+  return dow !== 0 && dow !== 6 && !isFeriado(date);
+}
+
+// Conta dias úteis de startDate (inclusive) até endDate (inclusive)
+function contarDiasUteis(startDate, endDate) {
+  var count = 0;
+  var cur = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+  var end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+  while(cur.getTime() <= end.getTime()) {
+    if(isUtilDia(cur)) count++;
+    cur.setDate(cur.getDate() + 1);
+  }
+  return count;
+}
+
+
 (function(){
   var sel = document.getElementById('mesSeletor');
   if(!sel) return;
@@ -744,36 +784,6 @@ function calcBV(t){
   var blocos = Math.floor(t / 15);
   var excedente = t % 15;
   return blocos * 100 + (excedente >= 10 ? excedente * 5 : 0);
-}
-
-// ============================================================
-// FERIADOS NACIONAIS FIXOS (dd/mm — valem para qualquer ano)
-// ============================================================
-var FERIADOS_NACIONAIS = [
-  '01/01','21/04','01/05','07/09','12/10','02/11','15/11','20/11','25/12'
-];
-
-function isFeriado(date) {
-  var d = String(date.getDate()).padStart(2,'0');
-  var m = String(date.getMonth()+1).padStart(2,'0');
-  return FERIADOS_NACIONAIS.indexOf(d+'/'+m) >= 0;
-}
-
-function isUtilDia(date) {
-  var dow = date.getDay(); // 0=dom, 6=sab
-  return dow !== 0 && dow !== 6 && !isFeriado(date);
-}
-
-// Conta dias úteis de startDate (inclusive) até endDate (inclusive)
-function contarDiasUteis(startDate, endDate) {
-  var count = 0;
-  var cur = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-  var end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
-  while(cur <= end) {
-    if(isUtilDia(cur)) count++;
-    cur.setDate(cur.getDate() + 1);
-  }
-  return count;
 }
 
 function calcMetaDiaria() {
@@ -880,16 +890,16 @@ function recalcMeta(){
     else if(total>=M1)fl.innerHTML='✅ Faltam <span class="fd">'+fmt(M2-total)+'</span> para a meta 2';
     else fl.innerHTML='😟 Faltam <span class="fd" style="color:#dc2626">'+fmt(M1-total)+'</span> para a meta inicial';
   }
-  var bonus=total>=SU?900:total>=M2?600:total>=M1?300:0;
-  _bonusMeta=Math.round(bonus/3);
-  ['bi1','bi2','bi3'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.className='bi'+(bonus>=[300,600,900][i]?' on':'');});
-  ['mb1','mb2','mbs'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.className='mb '+(i===0?'t1':i===1?'t2':'ts')+(bonus>=[300,600,900][i]?' on'+(i===0?'1':i===1?'2':'s'):'');});
+  var bonus=total>=SU?1000:total>=M2?700:total>=M1?400:0;
+  _bonusMeta=bonus; // total — distribuído proporcionalmente em atualizarFolha
+  ['bi1','bi2','bi3'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.className='bi'+(bonus>=[400,700,1000][i]?' on':'');});
+  ['mb1','mb2','mbs'].forEach(function(id,i){var el=document.getElementById(id);if(el)el.className='mb '+(i===0?'t1':i===1?'t2':'ts')+(bonus>=[400,700,1000][i]?' on'+(i===0?'1':i===1?'2':'s'):'');});
   var br=document.getElementById('bonusRow'),bl=document.getElementById('bonusLbl'),bv=document.getElementById('bonusVal');
   if(br&&bl&&bv){
     if(bonus>0){
       br.className='brow brow-ok';
       bl.className='brow-lbl';bl.textContent='🎉 Bônus meta financeira desbloqueado!';
-      bv.className='brow-ok-val';bv.textContent='R$ '+bonus+' (R$ '+Math.round(bonus/3)+' cada)';
+      bv.className='brow-ok-val';bv.textContent='R$ '+bonus+' (distribuído proporcionalmente)';
     }else{
       br.className='brow brow-nenhum';
       bl.className='brow-lbl';bl.textContent='😔 Poxa, ainda sem bônus — vamos juntas bater a meta!';
@@ -898,7 +908,7 @@ function recalcMeta(){
   }
   var sc=document.getElementById('statusCard');
   if(sc){
-    if(total>=SU){sc.className='sc sc-o';s('scIcon','🏆');s('scMsg','Super meta batida!');s('scSub','R$ 900 de bônus coletivo desbloqueado! Incrível!');}
+    if(total>=SU){sc.className='sc sc-o';s('scIcon','🏆');s('scMsg','Super meta batida!');s('scSub','R$ 1.000 de bônus proporcional desbloqueado! Incrível!');}
     else if(total>=M2){sc.className='sc sc-a';s('scIcon','🔥');s('scMsg','Meta 2 atingida!');s('scSub','Faltam '+fmt(SU-total)+' para a super meta — empurra!');}
     else if(total>=M1){sc.className='sc sc-v';s('scIcon','✅');s('scMsg','Meta inicial atingida!');s('scSub','Faltam '+fmt(M2-total)+' para a meta 2 — continua!');}
     else if(total>SU*0.5){sc.className='sc sc-i';s('scIcon','😤');s('scMsg','Ainda longe, mas vamos lá!');s('scSub','Faltam '+fmt(M1-total)+' para a meta inicial — não para!');}
@@ -906,9 +916,9 @@ function recalcMeta(){
   }
   var lvl=total>=SU?3:total>=M2?2:total>=M1?1:0;
   if(lvl>_lastMeta){
-    if(lvl===3)window.dispararConfete&&window.dispararConfete('🏆','Super meta batida!','R$ 900 de bônus para a equipe!');
-    else if(lvl===2)window.dispararConfete&&window.dispararConfete('🔥','Meta 2 atingida!','R$ 600 — partiu super meta!');
-    else if(lvl===1)window.dispararConfete&&window.dispararConfete('✅','Meta inicial batida!','R$ 300 de bônus desbloqueado!');
+    if(lvl===3)window.dispararConfete&&window.dispararConfete('🏆','Super meta batida!','R$ 1.000 de bônus proporcional!');
+    else if(lvl===2)window.dispararConfete&&window.dispararConfete('🔥','Meta 2 atingida!','R$ 700 — partiu super meta!');
+    else if(lvl===1)window.dispararConfete&&window.dispararConfete('✅','Meta inicial batida!','R$ 400 de bônus proporcional!');
   }
   _lastMeta=Math.max(_lastMeta,lvl);
   atualizarFolha();
@@ -1013,13 +1023,82 @@ function recalcRet(){
 }
 
 function atualizarFolha(){
-  var mb=_bonusMeta;
-  s('f_al_v',fmt(_remAL));s('f_al_m',fmt(mb));s('f_al_t',fmt(_remAL+mb));
-  s('f_da_v',fmt(_remDA));s('f_da_m',fmt(mb));s('f_da_t',fmt(_remDA+mb));
-  s('f_kv_v',fmt(_remKV));s('f_kv_m',fmt(mb));s('f_kv_t',fmt(_remKV+mb));
-  s('f_geral',fmt(_remAL+_remDA+_remKV+mb*3));
+  var bonusTotal = _bonusMeta; // valor total desbloqueado (400/700/1000)
+  var svAL = gi('sv'), svDA = gi('rv'), svKV = gi('kv_vend');
+  var totalConsultoras = svAL + svDA + svKV; // Outros não entra no rateio
+
+  // Bônus proporcional: cada uma recebe (sua venda / total consultoras) * bonusTotal
+  var mbAL = totalConsultoras > 0 ? Math.round((svAL / totalConsultoras) * bonusTotal) : 0;
+  var mbDA = totalConsultoras > 0 ? Math.round((svDA / totalConsultoras) * bonusTotal) : 0;
+  var mbKV = totalConsultoras > 0 ? Math.round((svKV / totalConsultoras) * bonusTotal) : 0;
+
+  s('f_al_v',fmt(_remAL));s('f_al_m',fmt(mbAL));s('f_al_t',fmt(_remAL+mbAL));
+  s('f_da_v',fmt(_remDA));s('f_da_m',fmt(mbDA));s('f_da_t',fmt(_remDA+mbDA));
+  s('f_kv_v',fmt(_remKV));s('f_kv_m',fmt(mbKV));s('f_kv_t',fmt(_remKV+mbKV));
+  s('f_geral',fmt(_remAL+_remDA+_remKV+mbAL+mbDA+mbKV));
   var fd=function(v){return v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});};
   s('f_al_c',fd(_prodAL*0.01));s('f_da_c',fd(_prodDA*0.01));s('f_kv_c',fd(_prodKV*0.01));
+
+  // Atualizar ranking
+  atualizarRanking(svAL, svDA, svKV, totalConsultoras, bonusTotal, mbAL, mbDA, mbKV);
+}
+
+function atualizarRanking(svAL, svDA, svKV, total, bonusTotal, mbAL, mbDA, mbKV) {
+  var lista = document.getElementById('rankingLista');
+  if(!lista) return;
+
+  var consultoras = [
+    {sigla:'CM', nome:'Camilly',  venda:svAL, bonus:mbAL, cor:'#1e3a8a', bg:'rgba(30,58,138,.3)'},
+    {sigla:'KA', nome:'Kalitha',  venda:svDA, bonus:mbDA, cor:'#14532d', bg:'rgba(20,83,45,.3)'},
+    {sigla:'KV', nome:'Kevelyn',  venda:svKV, bonus:mbKV, cor:'#5b21b6', bg:'rgba(91,33,182,.3)'},
+  ];
+
+  // Ordenar por venda (maior primeiro)
+  consultoras.sort(function(a,b){ return b.venda - a.venda; });
+
+  var medalhas = ['🥇','🥈','🥉'];
+  var html = '';
+
+  consultoras.forEach(function(c, i) {
+    var pct = total > 0 ? ((c.venda / total) * 100).toFixed(1) : '0.0';
+    var barW = total > 0 ? Math.round((c.venda / total) * 100) : 0;
+    var isMelhor = i === 0 && c.venda > 0;
+    var medal = medalhas[i] || '';
+
+    html += '<div style="background:rgba(255,255,255,.07);border-radius:12px;padding:10px 12px;border:1px solid rgba(255,255,255,.12)'+(isMelhor?';border-color:rgba(245,158,11,.5)':'')+'">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">';
+    html +=   '<div style="display:flex;align-items:center;gap:8px">';
+    html +=     '<span style="font-size:18px">'+(c.venda > 0 ? medal : '')+'</span>';
+    html +=     '<div style="width:26px;height:26px;border-radius:50%;background:'+c.bg+';border:1.5px solid '+c.cor+';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff">'+c.sigla+'</div>';
+    html +=     '<div><div style="font-size:13px;font-weight:700;color:#fff">'+c.nome+'</div>';
+    html +=     '<div style="font-size:11px;color:rgba(255,255,255,.5)">'+fmt(c.venda)+'</div></div>';
+    html +=   '</div>';
+    html +=   '<div style="text-align:right">';
+    html +=     '<div style="font-size:16px;font-weight:800;color:'+(c.venda>0?'#f59e0b':'rgba(255,255,255,.2)')+'">'+pct+'%</div>';
+    if(bonusTotal > 0 && c.venda > 0) {
+      html += '<div style="font-size:11px;color:#fbbf24;font-weight:600">+'+fmt(c.bonus)+'</div>';
+    }
+    html +=   '</div>';
+    html += '</div>';
+    // Barra de progresso proporcional
+    html += '<div style="height:4px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden">';
+    html += '<div style="height:100%;width:'+barW+'%;background:'+(i===0?'linear-gradient(90deg,#f59e0b,#fbbf24)':i===1?'linear-gradient(90deg,#6b7280,#9ca3af)':'linear-gradient(90deg,#78350f,#d97706)')+';border-radius:99px;transition:width .5s"></div>';
+    html += '</div>';
+    html += '</div>';
+  });
+
+  if(total === 0) {
+    html = '<div style="text-align:center;font-size:13px;color:rgba(255,255,255,.35);padding:.5rem">Preencha os dados para ver o ranking</div>';
+  }
+
+  lista.innerHTML = html;
+
+  // Atualizar medalhas nos cards de nome
+  var rankMap = {'CM':'rank_cm','KA':'rank_ka','KV':'rank_kv'};
+  consultoras.forEach(function(c, i) {
+    var el = document.getElementById(rankMap[c.sigla]);
+    if(el) el.textContent = (c.venda > 0 && i < 3) ? medalhas[i] : '';
+  });
 }
 
 function getSnap(){
