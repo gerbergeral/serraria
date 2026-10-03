@@ -12,23 +12,26 @@
   --radius: 14px; --shadow: 0 1px 3px rgba(17,24,39,.06), 0 6px 18px rgba(17,24,39,.05);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 18px; }
+@media (max-width: 600px) { html { font-size: 16.5px; } }
 body { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.45; }
 
 /* HEADER */
-.header { background: #fff; border-bottom: 1px solid var(--line); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.header { background: #fff; border-bottom: 1px solid var(--line); padding: 14px max(20px, calc((100% - 1180px) / 2 + 20px)); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .brand { display: flex; align-items: center; gap: 18px; }
 .brand img { height: 46px; width: auto; display: block; }
 .brand .unit { border-left: 2px solid var(--line); padding-left: 18px; }
 .brand .unit h1 { font-size: 1.25rem; font-weight: 800; letter-spacing: .3px; }
 .brand .unit span { font-size: .8rem; color: var(--muted); }
-.header-info { text-align: right; font-size: .82rem; color: var(--muted); }
+.header-info { text-align: right; font-size: .86rem; color: var(--muted); }
 .header-info strong { color: var(--ink); }
 
 /* NAV */
-.nav { background: #fff; border-bottom: 1px solid var(--line); display: flex; gap: 4px; padding: 8px 16px; overflow-x: auto; position: sticky; top: 0; z-index: 50; }
-.nav button { border: none; background: transparent; padding: 10px 14px; border-radius: 10px; font-size: .86rem; font-weight: 600; color: var(--ink2); cursor: pointer; white-space: nowrap; transition: background .15s; }
+.nav { background: #fff; border-bottom: 1px solid var(--line); display: flex; justify-content: center; gap: 6px; padding: 8px max(16px, calc((100% - 1180px) / 2 + 20px)); overflow-x: auto; position: sticky; top: 0; z-index: 50; }
+.nav button { border: none; background: transparent; padding: 10px 14px; border-radius: 10px; font-size: .9rem; font-weight: 600; color: var(--ink2); cursor: pointer; white-space: nowrap; transition: background .15s; }
 .nav button:hover { background: var(--soft); }
 .nav button.active { background: var(--brand); color: #fff; }
+@media (max-width: 1000px) { .nav { justify-content: flex-start; } }
 .nav button .lock { font-size: .72rem; opacity: .7; margin-left: 2px; }
 
 /* LAYOUT */
@@ -37,22 +40,23 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; ba
 .bar { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
 .bar label { font-weight: 700; font-size: .88rem; }
 .bar select { padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; font-size: .9rem; background: #fff; }
-.bar .status { font-size: .8rem; color: var(--muted); }
+.bar .status { font-size: .86rem; color: var(--muted); }
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: .75rem; font-weight: 700; }
 .chip.green { background: var(--green-soft); color: var(--green); } .chip.amber { background: var(--amber-soft); color: var(--amber); }
 .chip.red { background: var(--red-soft); color: var(--red); } .chip.blue { background: var(--blue-soft); color: var(--blue); } .chip.gray { background: var(--soft); color: var(--muted); border: 1px solid var(--line); }
 .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.grid.people { grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); }
 .grid-2 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; margin-bottom: 16px; min-width: 0; }
-.card h2 { font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.card .sub { font-size: .82rem; color: var(--muted); margin-bottom: 14px; }
+.card h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.card .sub { font-size: .88rem; color: var(--muted); margin-bottom: 14px; }
 .kpi { background: var(--soft); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; min-width: 0; }
-.kpi .l { font-size: .72rem; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); font-weight: 700; }
-.kpi .v { font-size: 1.5rem; font-weight: 800; margin-top: 2px; }
-.kpi .h { font-size: .78rem; color: var(--muted); margin-top: 2px; }
-.big { font-size: 2.4rem; font-weight: 900; letter-spacing: -.5px; line-height: 1.1; }
+.kpi .l { font-size: .76rem; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); font-weight: 700; }
+.kpi .v { font-size: 1.85rem; font-weight: 800; margin-top: 2px; }
+.kpi .h { font-size: .84rem; color: var(--muted); margin-top: 2px; }
+.big { font-size: 2.8rem; font-weight: 900; letter-spacing: -.5px; line-height: 1.1; }
 .ok { color: var(--green); } .warn { color: var(--amber); } .bad { color: var(--red); } .info { color: var(--blue); }
-.row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: .88rem; }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: .95rem; }
 .row:last-child { border-bottom: none; }
 .row .lbl { color: var(--ink2); }
 .row .val { font-weight: 700; white-space: nowrap; }
@@ -62,7 +66,7 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; ba
 .prog .fill { height: 100%; border-radius: 999px; transition: width .6s ease; }
 .fill.green { background: linear-gradient(90deg,#22c55e,#16a34a); } .fill.amber { background: linear-gradient(90deg,#fbbf24,#d97706); }
 .fill.red { background: linear-gradient(90deg,#f87171,#dc2626); } .fill.blue { background: linear-gradient(90deg,#60a5fa,#2563eb); } .fill.dark { background: #111827; }
-.marks { position: relative; height: 22px; font-size: .7rem; color: var(--muted); font-weight: 700; }
+.marks { position: relative; height: 22px; font-size: .76rem; color: var(--muted); font-weight: 700; }
 .marks span { position: absolute; transform: translateX(-100%); white-space: nowrap; }
 .marks em { font-style: normal; }
 @media (max-width: 600px) { .marks em { display: none; } }
@@ -73,30 +77,30 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; ba
 .metas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
 .meta { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #fff; }
 .meta.hit { border-color: var(--green); background: var(--green-soft); }
-.meta .t { font-size: .74rem; font-weight: 800; text-transform: uppercase; color: var(--muted); }
+.meta .t { font-size: .78rem; font-weight: 800; text-transform: uppercase; color: var(--muted); }
 .meta.hit .t { color: var(--green); }
-.meta .v { font-size: 1.05rem; font-weight: 800; }
-.meta .b { font-size: .75rem; color: var(--muted); }
+.meta .v { font-size: 1.4rem; font-weight: 800; }
+.meta .b { font-size: .82rem; color: var(--muted); }
 
 /* RANKING */
 .rank { display: flex; flex-direction: column; gap: 8px; }
 .rank-item { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
 .rank-item.first { border-color: #f5c451; background: #fffbeb; }
 .rank-item .pos { font-size: 1.4rem; text-align: center; }
-.rank-item .nm { font-weight: 700; }
-.rank-item .sm { font-size: .78rem; color: var(--muted); }
-.rank-item .rv { text-align: right; font-weight: 800; }
+.rank-item .nm { font-weight: 700; font-size: 1.02rem; }
+.rank-item .sm { font-size: .85rem; color: var(--muted); }
+.rank-item .rv { text-align: right; font-weight: 800; font-size: 1.1rem; }
 
 /* PERSON */
 .person { border-top: 4px solid var(--accent); }
 .person .head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
-.person .nome { font-weight: 800; font-size: 1.02rem; }
-.tip { background: var(--accent-soft); border: 1px solid #d6e4f2; color: #173b5c; border-radius: 12px; padding: 12px 14px; font-size: .88rem; margin-bottom: 16px; }
+.person .nome { font-weight: 800; font-size: 1.12rem; }
+.tip { background: var(--accent-soft); border: 1px solid #d6e4f2; color: #173b5c; border-radius: 12px; padding: 12px 14px; font-size: .94rem; margin-bottom: 16px; }
 .tip strong { display: block; margin-bottom: 2px; }
 .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; align-items: stretch; }
 .flow .step { border: 1px solid var(--line); border-radius: 12px; padding: 12px; text-align: center; background: #fff; }
-.flow .step .n { font-size: 1.6rem; font-weight: 900; }
-.flow .step .l { font-size: .74rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
+.flow .step .n { font-size: 1.9rem; font-weight: 900; }
+.flow .step .l { font-size: .78rem; color: var(--muted); font-weight: 700; text-transform: uppercase; }
 .policy { font-size: .85rem; color: var(--ink2); }
 .policy li { margin: 4px 0 4px 18px; }
 details.pol { border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; background: #fff; margin-bottom: 16px; }
@@ -105,9 +109,9 @@ details.pol[open] summary { margin-bottom: 8px; }
 
 /* TABLES */
 .table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+table { width: 100%; border-collapse: collapse; font-size: .92rem; }
 th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
-th { background: var(--soft); font-size: .72rem; text-transform: uppercase; color: var(--muted); letter-spacing: .3px; }
+th { white-space: normal; background: var(--soft); font-size: .72rem; text-transform: uppercase; color: var(--muted); letter-spacing: .3px; }
 .fill-table td:first-child { font-weight: 700; }
 .fill-table input { width: 100%; min-width: 70px; padding: 7px 8px; border: 1px solid var(--line); border-radius: 8px; font-size: .9rem; text-align: center; }
 .fill-table input.money { min-width: 110px; text-align: right; }
@@ -343,7 +347,7 @@ function slotsDe(c, ult) {
   let out = [];
   if (c && Array.isArray(c.consultoras)) out = c.consultoras.filter(x => x && x.nome).map(x => ({ k: x.k, nome: x.nome }));
   if (!out.length && ult) for (let k = 1; k <= 6; k++) if (ult['c' + k + '_nome']) out.push({ k, nome: String(ult['c' + k + '_nome']) });
-  if (!out.length) out = NOMES_PADRAO.map((n, i) => ({ k: i + 1, nome: n }));
+  if (!out.length) out = NOMES_PADRAO.map((n, i) => ({ k: i + 1, nome: n })).filter(x => x.nome);
   return out;
 }
 async function loadMonth() {
@@ -537,7 +541,7 @@ function renderAtivos(t) {
         ${kpi('Planos anuais', `${t.totalAnuais} <span style="font-size:.9rem;color:var(--muted)">(${pct(qual)}%)</span>`, 'dos novos + rematrículas')}
       </div>
     </div>
-    <div class="grid">
+    <div class="grid people">
       ${rank.map(p => {
         const b = bonusVendas(p.vendas), pb = proximoBonus(p.vendas), sobra = p.vendas % POL.bloco, okMin = p.vendas >= POL.minimoIdeal;
         return `<div class="card person" style="border-top-color:${p.cor}">
@@ -638,7 +642,7 @@ function renderFolha(t) {
       <div class="sub">Quanto cada vendedora já garantiu de bônus até a última apuração. "Outros" não entra aqui: soma no resultado da unidade e da líder.</div>
       <div class="grid">${kpi('Total folha das consultoras', 'R$ ' + fmt2(geral), '', 'ok')}${kpi('Faixa da meta', f ? 'Meta ' + f : 'Nenhuma', f ? 'bônus de ' + brl(POL.bonusMeta[f - 1]) + ' dividido' : 'sem bônus de meta ainda')}${kpi('Bônus renovação', brl(bR), 'para cada consultora')}</div>
     </div>
-    <div class="grid">${cards}</div>
+    <div class="grid people">${cards}</div>
     <details class="pol"><summary>📋 Política de bonificação — consultoras</summary>
       <ul class="policy">
         <li><strong>Meta financeira:</strong> Meta 1 → R$ 400 · Meta 2 → R$ 700 · Meta 3 → R$ 1.000, rateados pela participação de cada consultora no total vendido pela unidade (ex.: fez 50% do total → recebe 50% do bônus). A fatia de Outros não gera bônus individual.</li>
